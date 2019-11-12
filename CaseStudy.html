@@ -10,8 +10,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Sid Swarupananda" />
+<meta name="author" content="Sid Swarupananda and Sean McWhirter" />
 
+<meta name="date" content="2019-10-25" />
 
 <title>DDS Case Study</title>
 
@@ -292,12 +293,15 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">DDS Case Study</h1>
-<h4 class="author">Sid Swarupananda</h4>
-<h4 class="date">October 8, 2019</h4>
+<h4 class="author">Sid Swarupananda and Sean McWhirter</h4>
+<h4 class="date">October 25, 2019</h4>
 
 </div>
 
 
+<div id="hello-and-thank-you-for-joining-sean-and-me-to-review-some-insights-that-we-were-able-to-gain-with-the-data-that-this-committee-has-given-us.-we-will-be-covering-all-of-the-initial-questions-that-you-all-posed-in-the-beginning-of-this-process-as-well-as-some-other-potentially-valuable-information-that-could-be-of-use-to-you-all-here-at-budweiser." class="section level1">
+<h1>Hello and thank you for joining Sean and me to review some insights that we were able to gain with the data that this committee has given us. We will be covering all of the initial questions that you all posed in the beginning of this process, as well as some other potentially valuable information that could be of use to you all here at Budweiser.</h1>
+</div>
 <div id="libraries-used" class="section level1">
 <h1>Libraries used</h1>
 <pre class="r"><code>library(plyr)</code></pre>
@@ -344,13 +348,102 @@ library(caret)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre class="r"><code>library(e1071)</code></pre>
 <pre><code>## Warning: package &#39;e1071&#39; was built under R version 3.5.3</code></pre>
-<pre class="r"><code>library(ggthemes)</code></pre>
+<pre class="r"><code>library(ggthemes)
+library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## v tibble  2.1.3     v purrr   0.3.2
+## v tidyr   1.0.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
+## x purrr::%@%()             masks rlang::%@%()
+## x dplyr::arrange()         masks plyr::arrange()
+## x purrr::as_function()     masks rlang::as_function()
+## x purrr::compact()         masks plyr::compact()
+## x dplyr::count()           masks plyr::count()
+## x tidyr::extract()         masks magrittr::extract()
+## x dplyr::failwith()        masks plyr::failwith()
+## x dplyr::filter()          masks stats::filter()
+## x purrr::flatten()         masks rlang::flatten()
+## x purrr::flatten_chr()     masks rlang::flatten_chr()
+## x purrr::flatten_dbl()     masks rlang::flatten_dbl()
+## x purrr::flatten_int()     masks rlang::flatten_int()
+## x purrr::flatten_lgl()     masks rlang::flatten_lgl()
+## x purrr::flatten_raw()     masks rlang::flatten_raw()
+## x kableExtra::group_rows() masks dplyr::group_rows()
+## x dplyr::id()              masks plyr::id()
+## x purrr::invoke()          masks rlang::invoke()
+## x dplyr::lag()             masks stats::lag()
+## x purrr::lift()            masks caret::lift()
+## x purrr::list_along()      masks rlang::list_along()
+## x purrr::modify()          masks rlang::modify()
+## x dplyr::mutate()          masks plyr::mutate()
+## x purrr::prepend()         masks rlang::prepend()
+## x dplyr::rename()          masks plyr::rename()
+## x purrr::set_names()       masks rlang::set_names(), magrittr::set_names()
+## x purrr::splice()          masks rlang::splice()
+## x dplyr::summarise()       masks plyr::summarise()
+## x dplyr::summarize()       masks plyr::summarize()</code></pre>
+<pre class="r"><code>library(GGally)</code></pre>
+<pre><code>## Warning: package &#39;GGally&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;GGally&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     nasa</code></pre>
+<pre class="r"><code>library(doBy)
+library(ggmap)</code></pre>
+<pre><code>## Warning: package &#39;ggmap&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Google&#39;s Terms of Service: https://cloud.google.com/maps-platform/terms/.</code></pre>
+<pre><code>## Please cite ggmap if you use it! See citation(&quot;ggmap&quot;) for details.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggmap&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
+## 
+##     inset</code></pre>
+<pre class="r"><code>library(maps)</code></pre>
+<pre><code>## Warning: package &#39;maps&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;maps&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     map</code></pre>
+<pre><code>## The following object is masked from &#39;package:plyr&#39;:
+## 
+##     ozone</code></pre>
+<pre class="r"><code>library(openintro)</code></pre>
+<pre><code>## Warning: package &#39;openintro&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Please visit openintro.org for free statistics materials</code></pre>
+<pre><code>## 
+## Attaching package: &#39;openintro&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:caret&#39;:
+## 
+##     dotPlot</code></pre>
+<pre><code>## The following object is masked from &#39;package:lattice&#39;:
+## 
+##     lsegments</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     diamonds</code></pre>
+<pre><code>## The following objects are masked from &#39;package:datasets&#39;:
+## 
+##     cars, trees</code></pre>
+<pre class="r"><code>library(stringr)</code></pre>
 </div>
-<div id="how-many-breweries-are-present-in-each-state" class="section level1">
-<h1>1. How many breweries are present in each state?</h1>
+<div id="question-1.-how-many-breweries-are-present-in-each-state" class="section level1">
+<h1>Question 1. How many breweries are present in each state?</h1>
 <pre class="r"><code># Read in beer and breweries data set using read.csv
-Beers &lt;- read.csv(&quot;https://raw.githubusercontent.com/BivinSadler/MDS-6306-Doing-Data-Science-Fall-2019/master/Unit%208%20and%209%20Case%20Study%201/Beers.csv&quot;, header = TRUE, sep = &quot;,&quot;)
-Breweries &lt;- read.csv(&quot;https://raw.githubusercontent.com/BivinSadler/MDS-6306-Doing-Data-Science-Fall-2019/master/Unit%208%20and%209%20Case%20Study%201/Breweries.csv&quot;, header = TRUE, sep = &quot;,&quot;)
+Beers &lt;- read.csv(&quot;https://raw.githubusercontent.com/siddeshwar627/MSDS6306_CaseStudy_01/master/Beers.csv&quot;, header = TRUE, sep = &quot;,&quot;)
+Breweries &lt;- read.csv(&quot;https://raw.githubusercontent.com/siddeshwar627/MSDS6306_CaseStudy_01/master/Breweries.csv&quot;, header = TRUE, sep = &quot;,&quot;)
+
+detach(package:plyr)    
+library(dplyr)
 
 BrewPerState &lt;-table(Breweries$State)
 BrewPerState</code></pre>
@@ -371,285 +464,307 @@ labs(title=&quot;Ordered Bar Chart&quot;,
      theme(axis.text.x = element_text(angle=65, vjust=0.6))</code></pre>
 <p><img src="CaseStudy_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="merge-beer-data-with-the-breweries-data.-print-the-first-6-observations-and-the-last-six-observations-to-check-the-merged-file.-rmd-only-this-does-not-need-to-be-included-in-the-presentation-or-the-deck." class="section level1">
-<h1>2. Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file. (RMD only, this does not need to be included in the presentation or the deck.)</h1>
-<pre class="r"><code>detach(package:plyr)    
-library(dplyr)
-# Renamed Brewery_id to Brew_ID to satisfy merging requirement
+<div id="in-the-united-states-range-of-breweries-per-state-go-from-1-brewery-to-47-breweries.-the-average-number-of-craft-breweries-per-state-is-10.9." class="section level1">
+<h1>In the United States, range of breweries per state go from 1 brewery to 47 breweries. The average number of craft breweries per state is 10.9.</h1>
+</div>
+<div id="top-states-with-the-most-breweries-include" class="section level1">
+<h1>Top States with the most breweries include:</h1>
+</div>
+<div id="colorado-47-california-39-michigan-32-oregon-29-texas-28" class="section level1">
+<h1>Colorado (47), California (39), Michigan (32), Oregon (29), Texas (28)</h1>
+</div>
+<div id="pennsylvania-25-massachusetts-23-washington-23-indiana-22-and-wisconsin-20-are-the-next-five-in-order" class="section level1">
+<h1>Pennsylvania (25), Massachusetts (23), Washington (23), Indiana (22), and Wisconsin (20) are the next five in order</h1>
+</div>
+<div id="note-the-top-five-states-account-for-31-of-all-breweries-within-the-united-states" class="section level1">
+<h1>Note: The top five states account for 31% of all breweries within the United States</h1>
+</div>
+<div id="bottom-states" class="section level1">
+<h1>Bottom States</h1>
+</div>
+<div id="north-dakota-south-dakota-west-virginia-and-district-of-columbia-are-at-the-bottom-with-one-brewery-each." class="section level1">
+<h1>North Dakota, South Dakota, West Virginia and District of Columbia are at the bottom with one brewery each.</h1>
+</div>
+<div id="on-another-note-north-dakota-south-dakota-and-district-of-columbia-have-a-small-population.-but-west-virginia-is-38-in-total-population-list-in-united-states.-if-you-are-looking-for-an-opportunity-to-expand-into-beer-market-west-virginia-may-be-a-good-place-to-look-at." class="section level1">
+<h1>On another note, North Dakota, South Dakota and District of Columbia have a small population. But West Virginia is 38 in total population list in United States. If you are looking for an opportunity to expand into Beer market, West Virginia may be a good place to look at.</h1>
+</div>
+<div id="question-2.-merge-beer-data-with-the-breweries-data.-print-the-first-6-observations-and-the-last-six-observations-to-check-the-merged-file." class="section level1">
+<h1>Question 2. Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.</h1>
+<pre class="r"><code># Renamed Brewery_id to Brew_ID to satisfy merging requirement
 Beers &lt;- rename(Beers, Brew_ID = Brewery_id)
 BrewPub &lt;- merge(Beers, Breweries, by=&quot;Brew_ID&quot;)
 
-# Change variable names to more meaningful title
-BrewPub &lt;- full_join(Beers, Breweries, by=&quot;Brew_ID&quot;)
+# Rename Name.x as Beer_Name and Name.y as Brewery_Name
+BrewPub &lt;- rename(BrewPub, Beer_Name = Name.x)
+BrewPub &lt;- rename(BrewPub, Brewery_Name = Name.y)
 
-#kable - Used to create tables in LaTeX, HTML, Markdown and reStructuredText
 # First 6 observations of the merged file
-kable(head(BrewPub,6))</code></pre>
+kable(head(BrewPub, 6), align = &#39;c&#39;)</code></pre>
 <table>
 <thead>
 <tr>
-<th style="text-align:left;">
-Name.x
-</th>
-<th style="text-align:right;">
-Beer_ID
-</th>
-<th style="text-align:right;">
-ABV
-</th>
-<th style="text-align:right;">
-IBU
-</th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 Brew_ID
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
+Beer_Name
+</th>
+<th style="text-align:center;">
+Beer_ID
+</th>
+<th style="text-align:center;">
+ABV
+</th>
+<th style="text-align:center;">
+IBU
+</th>
+<th style="text-align:center;">
 Style
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 Ounces
 </th>
-<th style="text-align:left;">
-Name.y
+<th style="text-align:center;">
+Brewery_Name
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
 City
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
 State
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-Pub Beer
+<td style="text-align:center;">
+1
 </td>
-<td style="text-align:right;">
-1436
+<td style="text-align:center;">
+Get Together
 </td>
-<td style="text-align:right;">
-0.050
+<td style="text-align:center;">
+2692
 </td>
-<td style="text-align:right;">
-NA
+<td style="text-align:center;">
+0.045
 </td>
-<td style="text-align:right;">
-409
+<td style="text-align:center;">
+50
 </td>
-<td style="text-align:left;">
-American Pale Lager
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:left;">
-10 Barrel Brewing Company
-</td>
-<td style="text-align:left;">
-Bend
-</td>
-<td style="text-align:left;">
-OR
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Devil’s Cup
-</td>
-<td style="text-align:right;">
-2265
-</td>
-<td style="text-align:right;">
-0.066
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-178
-</td>
-<td style="text-align:left;">
-American Pale Ale (APA)
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:left;">
-18th Street Brewery
-</td>
-<td style="text-align:left;">
-Gary
-</td>
-<td style="text-align:left;">
-IN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rise of the Phoenix
-</td>
-<td style="text-align:right;">
-2264
-</td>
-<td style="text-align:right;">
-0.071
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-178
-</td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 American IPA
 </td>
-<td style="text-align:right;">
-12
+<td style="text-align:center;">
+16
 </td>
-<td style="text-align:left;">
-18th Street Brewery
+<td style="text-align:center;">
+NorthGate Brewing
 </td>
-<td style="text-align:left;">
-Gary
+<td style="text-align:center;">
+Minneapolis
 </td>
-<td style="text-align:left;">
-IN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sinister
-</td>
-<td style="text-align:right;">
-2263
-</td>
-<td style="text-align:right;">
-0.090
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-178
-</td>
-<td style="text-align:left;">
-American Double / Imperial IPA
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:left;">
-18th Street Brewery
-</td>
-<td style="text-align:left;">
-Gary
-</td>
-<td style="text-align:left;">
-IN
+<td style="text-align:center;">
+MN
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Sex and Candy
+<td style="text-align:center;">
+1
 </td>
-<td style="text-align:right;">
-2262
+<td style="text-align:center;">
+Maggie’s Leap
 </td>
-<td style="text-align:right;">
-0.075
+<td style="text-align:center;">
+2691
 </td>
-<td style="text-align:right;">
-NA
+<td style="text-align:center;">
+0.049
 </td>
-<td style="text-align:right;">
-178
+<td style="text-align:center;">
+26
 </td>
-<td style="text-align:left;">
-American IPA
+<td style="text-align:center;">
+Milk / Sweet Stout
 </td>
-<td style="text-align:right;">
-12
+<td style="text-align:center;">
+16
 </td>
-<td style="text-align:left;">
-18th Street Brewery
+<td style="text-align:center;">
+NorthGate Brewing
 </td>
-<td style="text-align:left;">
-Gary
+<td style="text-align:center;">
+Minneapolis
 </td>
-<td style="text-align:left;">
-IN
+<td style="text-align:center;">
+MN
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Black Exodus
+<td style="text-align:center;">
+1
 </td>
-<td style="text-align:right;">
-2261
+<td style="text-align:center;">
+Wall’s End
 </td>
-<td style="text-align:right;">
-0.077
+<td style="text-align:center;">
+2690
 </td>
-<td style="text-align:right;">
-NA
+<td style="text-align:center;">
+0.048
 </td>
-<td style="text-align:right;">
-178
+<td style="text-align:center;">
+19
 </td>
-<td style="text-align:left;">
-Oatmeal Stout
+<td style="text-align:center;">
+English Brown Ale
 </td>
-<td style="text-align:right;">
-12
+<td style="text-align:center;">
+16
 </td>
-<td style="text-align:left;">
-18th Street Brewery
+<td style="text-align:center;">
+NorthGate Brewing
 </td>
-<td style="text-align:left;">
-Gary
+<td style="text-align:center;">
+Minneapolis
 </td>
-<td style="text-align:left;">
-IN
+<td style="text-align:center;">
+MN
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Pumpion
+</td>
+<td style="text-align:center;">
+2689
+</td>
+<td style="text-align:center;">
+0.060
+</td>
+<td style="text-align:center;">
+38
+</td>
+<td style="text-align:center;">
+Pumpkin Ale
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+NorthGate Brewing
+</td>
+<td style="text-align:center;">
+Minneapolis
+</td>
+<td style="text-align:center;">
+MN
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Stronghold
+</td>
+<td style="text-align:center;">
+2688
+</td>
+<td style="text-align:center;">
+0.060
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+American Porter
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+NorthGate Brewing
+</td>
+<td style="text-align:center;">
+Minneapolis
+</td>
+<td style="text-align:center;">
+MN
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Parapet ESB
+</td>
+<td style="text-align:center;">
+2687
+</td>
+<td style="text-align:center;">
+0.056
+</td>
+<td style="text-align:center;">
+47
+</td>
+<td style="text-align:center;">
+Extra Special / Strong Bitter (ESB)
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+NorthGate Brewing
+</td>
+<td style="text-align:center;">
+Minneapolis
+</td>
+<td style="text-align:center;">
+MN
 </td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code># Last 6 observations of the merged file
-kable(tail(BrewPub,6))</code></pre>
+kable(tail(BrewPub,6), align = &#39;c&#39;)</code></pre>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
-<th style="text-align:left;">
-Name.x
-</th>
-<th style="text-align:right;">
-Beer_ID
-</th>
-<th style="text-align:right;">
-ABV
-</th>
-<th style="text-align:right;">
-IBU
-</th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 Brew_ID
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
+Beer_Name
+</th>
+<th style="text-align:center;">
+Beer_ID
+</th>
+<th style="text-align:center;">
+ABV
+</th>
+<th style="text-align:center;">
+IBU
+</th>
+<th style="text-align:center;">
 Style
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 Ounces
 </th>
-<th style="text-align:left;">
-Name.y
+<th style="text-align:center;">
+Brewery_Name
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
 City
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
 State
 </th>
 </tr>
@@ -659,235 +774,235 @@ State
 <td style="text-align:left;">
 2405
 </td>
-<td style="text-align:left;">
-Rocky Mountain Oyster Stout
+<td style="text-align:center;">
+556
 </td>
-<td style="text-align:right;">
-1035
+<td style="text-align:center;">
+Pilsner Ukiah
 </td>
-<td style="text-align:right;">
-0.075
+<td style="text-align:center;">
+98
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
+0.055
+</td>
+<td style="text-align:center;">
 NA
 </td>
-<td style="text-align:right;">
-425
+<td style="text-align:center;">
+German Pilsener
 </td>
-<td style="text-align:left;">
-American Stout
-</td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 12
 </td>
-<td style="text-align:left;">
-Wynkoop Brewing Company
+<td style="text-align:center;">
+Ukiah Brewing Company
 </td>
-<td style="text-align:left;">
-Denver
+<td style="text-align:center;">
+Ukiah
 </td>
-<td style="text-align:left;">
-CO
+<td style="text-align:center;">
+CA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 2406
 </td>
-<td style="text-align:left;">
-Belgorado
+<td style="text-align:center;">
+557
 </td>
-<td style="text-align:right;">
-928
+<td style="text-align:center;">
+Heinnieweisse Weissebier
 </td>
-<td style="text-align:right;">
-0.067
+<td style="text-align:center;">
+52
 </td>
-<td style="text-align:right;">
-45
+<td style="text-align:center;">
+0.049
 </td>
-<td style="text-align:right;">
-425
+<td style="text-align:center;">
+NA
 </td>
-<td style="text-align:left;">
-Belgian IPA
+<td style="text-align:center;">
+Hefeweizen
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 12
 </td>
-<td style="text-align:left;">
-Wynkoop Brewing Company
+<td style="text-align:center;">
+Butternuts Beer and Ale
 </td>
-<td style="text-align:left;">
-Denver
+<td style="text-align:center;">
+Garrattsville
 </td>
-<td style="text-align:left;">
-CO
+<td style="text-align:center;">
+NY
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 2407
 </td>
-<td style="text-align:left;">
-Rail Yard Ale
+<td style="text-align:center;">
+557
 </td>
-<td style="text-align:right;">
-807
+<td style="text-align:center;">
+Snapperhead IPA
 </td>
-<td style="text-align:right;">
-0.052
+<td style="text-align:center;">
+51
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
+0.068
+</td>
+<td style="text-align:center;">
 NA
 </td>
-<td style="text-align:right;">
-425
+<td style="text-align:center;">
+American IPA
 </td>
-<td style="text-align:left;">
-American Amber / Red Ale
-</td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 12
 </td>
-<td style="text-align:left;">
-Wynkoop Brewing Company
+<td style="text-align:center;">
+Butternuts Beer and Ale
 </td>
-<td style="text-align:left;">
-Denver
+<td style="text-align:center;">
+Garrattsville
 </td>
-<td style="text-align:left;">
-CO
+<td style="text-align:center;">
+NY
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 2408
 </td>
-<td style="text-align:left;">
-B3K Black Lager
+<td style="text-align:center;">
+557
 </td>
-<td style="text-align:right;">
-620
+<td style="text-align:center;">
+Moo Thunder Stout
 </td>
-<td style="text-align:right;">
-0.055
+<td style="text-align:center;">
+50
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
+0.049
+</td>
+<td style="text-align:center;">
 NA
 </td>
-<td style="text-align:right;">
-425
+<td style="text-align:center;">
+Milk / Sweet Stout
 </td>
-<td style="text-align:left;">
-Schwarzbier
-</td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 12
 </td>
-<td style="text-align:left;">
-Wynkoop Brewing Company
+<td style="text-align:center;">
+Butternuts Beer and Ale
 </td>
-<td style="text-align:left;">
-Denver
+<td style="text-align:center;">
+Garrattsville
 </td>
-<td style="text-align:left;">
-CO
+<td style="text-align:center;">
+NY
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 2409
 </td>
-<td style="text-align:left;">
-Silverback Pale Ale
+<td style="text-align:center;">
+557
 </td>
-<td style="text-align:right;">
-145
+<td style="text-align:center;">
+Porkslap Pale Ale
 </td>
-<td style="text-align:right;">
-0.055
+<td style="text-align:center;">
+49
 </td>
-<td style="text-align:right;">
-40
+<td style="text-align:center;">
+0.043
 </td>
-<td style="text-align:right;">
-425
+<td style="text-align:center;">
+NA
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 American Pale Ale (APA)
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 12
 </td>
-<td style="text-align:left;">
-Wynkoop Brewing Company
+<td style="text-align:center;">
+Butternuts Beer and Ale
 </td>
-<td style="text-align:left;">
-Denver
+<td style="text-align:center;">
+Garrattsville
 </td>
-<td style="text-align:left;">
-CO
+<td style="text-align:center;">
+NY
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 2410
 </td>
-<td style="text-align:left;">
-Rail Yard Ale (2009)
+<td style="text-align:center;">
+558
 </td>
-<td style="text-align:right;">
-84
+<td style="text-align:center;">
+Urban Wilderness Pale Ale
 </td>
-<td style="text-align:right;">
-0.052
+<td style="text-align:center;">
+30
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
+0.049
+</td>
+<td style="text-align:center;">
 NA
 </td>
-<td style="text-align:right;">
-425
+<td style="text-align:center;">
+English Pale Ale
 </td>
-<td style="text-align:left;">
-American Amber / Red Ale
-</td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 12
 </td>
-<td style="text-align:left;">
-Wynkoop Brewing Company
+<td style="text-align:center;">
+Sleeping Lady Brewing Company
 </td>
-<td style="text-align:left;">
-Denver
+<td style="text-align:center;">
+Anchorage
 </td>
-<td style="text-align:left;">
-CO
+<td style="text-align:center;">
+AK
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="address-the-missing-values-in-each-column." class="section level1">
-<h1>3. Address the missing values in each column.</h1>
+<div id="question-3.-address-the-missing-values-in-each-column." class="section level1">
+<h1>Question 3. Address the missing values in each column.</h1>
 <pre class="r"><code>summary(BrewPub)</code></pre>
-<pre><code>##                     Name.x        Beer_ID            ABV         
-##  Nonstop Hef Hop       :  12   Min.   :   1.0   Min.   :0.00100  
-##  Dale&#39;s Pale Ale       :   6   1st Qu.: 808.2   1st Qu.:0.05000  
-##  Oktoberfest           :   6   Median :1453.5   Median :0.05600  
-##  Longboard Island Lager:   4   Mean   :1431.1   Mean   :0.05977  
-##  1327 Pod&#39;s ESB        :   3   3rd Qu.:2075.8   3rd Qu.:0.06700  
-##  Boston Lager          :   3   Max.   :2692.0   Max.   :0.12800  
-##  (Other)               :2376                    NA&#39;s   :62       
-##       IBU            Brew_ID                                 Style     
-##  Min.   :  4.00   Min.   :  1.0   American IPA                  : 424  
-##  1st Qu.: 21.00   1st Qu.: 94.0   American Pale Ale (APA)       : 245  
-##  Median : 35.00   Median :206.0   American Amber / Red Ale      : 133  
-##  Mean   : 42.71   Mean   :232.7   American Blonde Ale           : 108  
-##  3rd Qu.: 64.00   3rd Qu.:367.0   American Double / Imperial IPA: 105  
-##  Max.   :138.00   Max.   :558.0   American Pale Wheat Ale       :  97  
-##  NA&#39;s   :1005                     (Other)                       :1298  
-##      Ounces                             Name.y               City     
+<pre><code>##     Brew_ID                       Beer_Name       Beer_ID      
+##  Min.   :  1.0   Nonstop Hef Hop       :  12   Min.   :   1.0  
+##  1st Qu.: 94.0   Dale&#39;s Pale Ale       :   6   1st Qu.: 808.2  
+##  Median :206.0   Oktoberfest           :   6   Median :1453.5  
+##  Mean   :232.7   Longboard Island Lager:   4   Mean   :1431.1  
+##  3rd Qu.:367.0   1327 Pod&#39;s ESB        :   3   3rd Qu.:2075.8  
+##  Max.   :558.0   Boston Lager          :   3   Max.   :2692.0  
+##                  (Other)               :2376                   
+##       ABV               IBU                                    Style     
+##  Min.   :0.00100   Min.   :  4.00   American IPA                  : 424  
+##  1st Qu.:0.05000   1st Qu.: 21.00   American Pale Ale (APA)       : 245  
+##  Median :0.05600   Median : 35.00   American Amber / Red Ale      : 133  
+##  Mean   :0.05977   Mean   : 42.71   American Blonde Ale           : 108  
+##  3rd Qu.:0.06700   3rd Qu.: 64.00   American Double / Imperial IPA: 105  
+##  Max.   :0.12800   Max.   :138.00   American Pale Wheat Ale       :  97  
+##  NA&#39;s   :62        NA&#39;s   :1005     (Other)                       :1298  
+##      Ounces                          Brewery_Name            City     
 ##  Min.   : 8.40   Brewery Vivant            :  62   Grand Rapids:  66  
 ##  1st Qu.:12.00   Oskar Blues Brewery       :  46   Portland    :  64  
 ##  Median :12.00   Sun King Brewing Company  :  38   Chicago     :  55  
@@ -904,6 +1019,7 @@ CO
 ##   OR    : 125  
 ##  (Other):1406</code></pre>
 <pre class="r"><code>MissingValues &lt;- sapply(BrewPub, function(x)sum(is.na(x)))
+# Used kable library to make document more presentable
 MissingValues %&gt;% kable(&quot;html&quot;) %&gt;% kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -918,7 +1034,15 @@ x
 <tbody>
 <tr>
 <td style="text-align:left;">
-Name.x
+Brew_ID
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Beer_Name
 </td>
 <td style="text-align:right;">
 0
@@ -950,14 +1074,6 @@ IBU
 </tr>
 <tr>
 <td style="text-align:left;">
-Brew_ID
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Style
 </td>
 <td style="text-align:right;">
@@ -974,136 +1090,7 @@ Ounces
 </tr>
 <tr>
 <td style="text-align:left;">
-Name.y
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-City
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-State
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>BrewPub &lt;- BrewPub %&gt;% na.omit()
-summary(BrewPub)</code></pre>
-<pre><code>##                     Name.x        Beer_ID          ABV         
-##  Nonstop Hef Hop       :  12   Min.   :   1   Min.   :0.02700  
-##  Dale&#39;s Pale Ale       :   6   1st Qu.: 772   1st Qu.:0.05000  
-##  Longboard Island Lager:   4   Median :1439   Median :0.05700  
-##  1327 Pod&#39;s ESB        :   3   Mean   :1415   Mean   :0.05991  
-##  Boston Lager          :   3   3rd Qu.:2069   3rd Qu.:0.06800  
-##  Dagger Falls IPA      :   3   Max.   :2692   Max.   :0.12500  
-##  (Other)               :1374                                   
-##       IBU            Brew_ID                                 Style    
-##  Min.   :  4.00   Min.   :  1.0   American IPA                  :301  
-##  1st Qu.: 21.00   1st Qu.: 95.0   American Pale Ale (APA)       :153  
-##  Median : 35.00   Median :198.0   American Amber / Red Ale      : 77  
-##  Mean   : 42.71   Mean   :224.2   American Double / Imperial IPA: 75  
-##  3rd Qu.: 64.00   3rd Qu.:351.0   American Blonde Ale           : 61  
-##  Max.   :138.00   Max.   :547.0   American Pale Wheat Ale       : 61  
-##                                   (Other)                       :677  
-##      Ounces                           Name.y               City     
-##  Min.   : 8.40   Oskar Blues Brewery     :  32   Portland    :  41  
-##  1st Qu.:12.00   Sun King Brewing Company:  32   Indianapolis:  36  
-##  Median :12.00   Sixpoint Craft Ales     :  23   San Diego   :  35  
-##  Mean   :13.51   Hopworks Urban Brewery  :  22   Brooklyn    :  28  
-##  3rd Qu.:16.00   Great Crescent Brewery  :  20   Boulder     :  26  
-##  Max.   :32.00   Stevens Point Brewery   :  20   Aurora      :  24  
-##                  (Other)                 :1256   (Other)     :1215  
-##      State    
-##   CO    :146  
-##   CA    :135  
-##   IN    : 91  
-##   TX    : 89  
-##   OR    : 87  
-##   MA    : 51  
-##  (Other):806</code></pre>
-<pre class="r"><code>MissingValues &lt;- sapply(BrewPub, function(x)sum(is.na(x)))
-MissingValues %&gt;% kable(&quot;html&quot;) %&gt;% kable_styling()</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-x
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Name.x
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Beer_ID
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ABV
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IBU
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Brew_ID
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Style
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ounces
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Name.y
+Brewery_Name
 </td>
 <td style="text-align:right;">
 0
@@ -1128,43 +1115,50 @@ State
 </tbody>
 </table>
 </div>
+<div id="abv-and-ibu-are-the-only-columns-with-missing-values.-abv-is-missing-62-values-and-ibu-is-mising-1005-values.-even-if-we-need-to-filter-out-all-1005-misisng-ibu-observations-we-would-still-have-1405.-if-the-abv-missing-values-do-not-overlap-we-would-still-have-1343-which-is-a-significant-sample-size." class="section level1">
+<h1>ABV and IBU are the only columns with missing values. ABV is missing 62 values, and IBU is mising 1005 values. Even if we need to filter out all 1005 misisng IBU observations, we would still have 1,405. If the ABV missing values do not overlap, we would still have 1,343, which is a significant sample size.</h1>
+</div>
 <div id="compute-the-median-alcohol-content-and-international-bitterness-unit-for-each-state.-plot-a-bar-chart-to-compare." class="section level1">
 <h1>4. Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.</h1>
 <pre class="r"><code># Compute the median alcohol content unit for each state.
-Firewater &lt;- BrewPub %&gt;% na.omit() %&gt;% group_by(State) %&gt;% summarize(Median = median(ABV)) %&gt;% arrange(Median)
+Alcohol &lt;- BrewPub %&gt;% na.omit() %&gt;% group_by(State) %&gt;% summarize(Median = median(ABV)) %&gt;% arrange(Median)
 
 # Compute the median international bitterness unit for each state.
 Bitter &lt;- BrewPub %&gt;% na.omit() %&gt;% group_by(State) %&gt;% summarize(Median = median(IBU)) %&gt;% arrange(Median)
 
 # Plot a bar chart to compare ABV by state
-ggplot(data=Firewater, aes(x=State, y=Median)) +
-  geom_bar(stat=&quot;identity&quot;, fill=&quot;steelblue&quot;)+
-  theme_economist() + 
-  scale_color_economist()+
-  theme(axis.text.x=element_text(size=rel(0.8), angle=90)) +
+ggplot(data=Alcohol, aes(x=State, y=Median)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;blue&quot;)+
   ggtitle(&quot;Median ABV by State&quot;) +
   labs(x=&quot;State&quot;,y=&quot;ABV&quot;)</code></pre>
 <p><img src="CaseStudy_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code># Plot a bar chart to compare IBU by state
 ggplot(data=Bitter, aes(x=State, y=Median)) +
-  geom_bar(stat=&quot;identity&quot;, fill=&quot;steelblue&quot;)+
-  theme_economist() + 
-  scale_color_economist()+
-  theme(axis.text.x=element_text(size=rel(0.8), angle=90))+
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;blue&quot;)+
   ggtitle(&quot;Median IBU by State&quot;) +
   labs(x=&quot;State&quot;,y=&quot;IBU&quot;)</code></pre>
 <p><img src="CaseStudy_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
 </div>
-<div id="which-state-has-the-maximum-alcoholic-abv-beer-which-state-has-the-most-bitter-ibu-beer" class="section level1">
-<h1>5. Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?</h1>
-<pre class="r"><code>kable(BrewPub[which.max(BrewPub$ABV),])</code></pre>
+<div id="here-we-have-2-charts-which-shows-medial-alcohol-content-per-state-and-median-international-bitterness-per-state" class="section level1">
+<h1>Here we have 2 charts, which shows Medial alcohol content per state and Median international bitterness per state</h1>
+</div>
+<div id="as-you-can-see-in-both-the-charts-the-medial-alcohol-content-per-state-is-fairly-consistent-around-6-and-median-international-bitterness-per-state-is-very-much-varied." class="section level1">
+<h1>As you can see in both the charts the medial alcohol content per state is fairly consistent around 6% and median international bitterness per state is very much varied.</h1>
+</div>
+<div id="question-5.-which-state-has-the-maximum-alcoholic-abv-beer-which-state-has-the-most-bitter-ibu-beer" class="section level1">
+<h1>Question 5. Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?</h1>
+<pre class="r"><code>#Which state has the maximum ABV beer?  Wich state has the highest IBU beer?
+kable(BrewPub[which.max(BrewPub$ABV),])</code></pre>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
+<th style="text-align:right;">
+Brew_ID
+</th>
 <th style="text-align:left;">
-Name.x
+Beer_Name
 </th>
 <th style="text-align:right;">
 Beer_ID
@@ -1175,9 +1169,6 @@ ABV
 <th style="text-align:right;">
 IBU
 </th>
-<th style="text-align:right;">
-Brew_ID
-</th>
 <th style="text-align:left;">
 Style
 </th>
@@ -1185,7 +1176,7 @@ Style
 Ounces
 </th>
 <th style="text-align:left;">
-Name.y
+Brewery_Name
 </th>
 <th style="text-align:left;">
 City
@@ -1198,37 +1189,37 @@ State
 <tbody>
 <tr>
 <td style="text-align:left;">
-71
-</td>
-<td style="text-align:left;">
-London Balling
+375
 </td>
 <td style="text-align:right;">
-2685
-</td>
-<td style="text-align:right;">
-0.125
-</td>
-<td style="text-align:right;">
-80
-</td>
-<td style="text-align:right;">
-2
+52
 </td>
 <td style="text-align:left;">
-English Barleywine
+Lee Hill Series Vol. 5 - Belgian Style Quadrupel Ale
 </td>
 <td style="text-align:right;">
-16
+2565
+</td>
+<td style="text-align:right;">
+0.128
+</td>
+<td style="text-align:right;">
+NA
 </td>
 <td style="text-align:left;">
-Against the Grain Brewery
+Quadrupel (Quad)
+</td>
+<td style="text-align:right;">
+19.2
 </td>
 <td style="text-align:left;">
-Louisville
+Upslope Brewing Company
 </td>
 <td style="text-align:left;">
-KY
+Boulder
+</td>
+<td style="text-align:left;">
+CO
 </td>
 </tr>
 </tbody>
@@ -1239,8 +1230,11 @@ KY
 <tr>
 <th style="text-align:left;">
 </th>
+<th style="text-align:right;">
+Brew_ID
+</th>
 <th style="text-align:left;">
-Name.x
+Beer_Name
 </th>
 <th style="text-align:right;">
 Beer_ID
@@ -1251,9 +1245,6 @@ ABV
 <th style="text-align:right;">
 IBU
 </th>
-<th style="text-align:right;">
-Brew_ID
-</th>
 <th style="text-align:left;">
 Style
 </th>
@@ -1261,7 +1252,7 @@ Style
 Ounces
 </th>
 <th style="text-align:left;">
-Name.y
+Brewery_Name
 </th>
 <th style="text-align:left;">
 City
@@ -1274,7 +1265,10 @@ State
 <tbody>
 <tr>
 <td style="text-align:left;">
-148
+1857
+</td>
+<td style="text-align:right;">
+375
 </td>
 <td style="text-align:left;">
 Bitter Bitch Imperial IPA
@@ -1287,9 +1281,6 @@ Bitter Bitch Imperial IPA
 </td>
 <td style="text-align:right;">
 138
-</td>
-<td style="text-align:right;">
-375
 </td>
 <td style="text-align:left;">
 American Double / Imperial IPA
@@ -1310,25 +1301,36 @@ OR
 </tbody>
 </table>
 </div>
-<div id="comment-on-the-summary-statistics-and-distribution-of-the-abv-variable." class="section level1">
-<h1>6. Comment on the summary statistics and distribution of the ABV variable.</h1>
+<div id="we-used-which.max-on-our-brewpub-dataset-to-get-the-maximum-values-in-abv-and-ibu-columns.-we-identified-colorado-as-having-the-beer-with-the-highest-abv-at-12.8-and-we-identified-oregon-has-having-the-beer-with-the-highest-ibu-at-138." class="section level1">
+<h1>We used which.max on our BrewPub dataset to get the maximum values in ABV and IBU columns. We identified Colorado as having the beer with the highest ABV, at 12.8% and we identified Oregon has having the beer with the highest IBU, at 138.</h1>
+</div>
+<div id="question-6.-comment-on-the-summary-statistics-and-distribution-of-the-abv-variable." class="section level1">
+<h1>Question 6. Comment on the summary statistics and distribution of the ABV variable.</h1>
 <pre class="r"><code>BeerSummary &lt;- (summary(BrewPub$ABV))
 print(BeerSummary)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-## 0.02700 0.05000 0.05700 0.05991 0.06800 0.12500</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+## 0.00100 0.05000 0.05600 0.05977 0.06700 0.12800      62</code></pre>
+<pre class="r"><code>ggplot(BrewPub, aes(x=ABV)) + geom_histogram(color = &quot;blue&quot;, fill = &quot;white&quot;) + xlab(&quot;Alcohol by Volume&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 62 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
-<div id="is-there-an-apparent-relationship-between-the-bitterness-of-the-beer-and-its-alcoholic-content-draw-a-scatter-plot.-make-your-best-judgment-of-a-relationship-and-explain-your-answer." class="section level1">
-<h1>7. Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.</h1>
-<pre class="r"><code># Draw a scatter plot to compare relationship between beer 
-# bitterness and alcohol content
+<div id="when-we-look-at-summary-statistics-of-alcohol-by-volume-we-see-that-we-have-some-beers-dont-even-measure-1.-median-was-5.6-mean-or-average-was-5.9-and-the-maximum-abv-was-around-13.-also-note-that-we-are-missing-62-values-in-the-dataset-that-we-were-provided" class="section level1">
+<h1>When we look at summary statistics of Alcohol by volume, we see that we have some beers don’t even measure 1%. Median was 5.6%, Mean or average was 5.9% and the maximum ABV was around 13%. Also, note that we are missing 62 values in the dataset that we were provided</h1>
+</div>
+<div id="looking-at-a-histogram-of-the-data-it-seems-to-be-a-bit-right-skewed.-this-makes-sense-because-beer-is-not-meant-to-be-a-very-high-abv-drink-the-high-abv-beers-would-be-more-rare." class="section level1">
+<h1>Looking at a histogram of the data, it seems to be a bit right-skewed. This makes sense because beer is not meant to be a very high ABV drink-the high ABV beers would be more rare.</h1>
+</div>
+<div id="question-7.-is-there-an-apparent-relationship-between-the-bitterness-of-the-beer-and-its-alcoholic-content-draw-a-scatter-plot.-make-your-best-judgment-of-a-relationship-and-explain-your-answer." class="section level1">
+<h1>Question 7. Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.</h1>
+<pre class="r"><code># Draw a scatter plot to compare relationship between beer bitterness and alcohol content
 ggplot(BrewPub, aes(x=IBU, y= ABV)) +
   geom_point(shape=1) +
    geom_smooth(method=lm) + # add linear regression line
-  theme_economist() + 
-  scale_color_economist()+
-  theme(axis.text.x=element_text(size=rel(1.0)))+
-ggtitle(&quot;Correlation between IBU and ABV &quot;) +
-  labs(x=&quot;IBU&quot;,y=&quot;ABV&quot;)</code></pre>
+ggtitle(&quot;Correlation between IBU and ABV&quot;) +
+  labs(x=&quot;IBU - Bitterness of the beer&quot;,y=&quot;ABV - Alcoholic content of the beer&quot;)</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing missing values (geom_point).</code></pre>
 <p><img src="CaseStudy_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code># Pearson&#39;s product-moment correlation
 cor.test(BrewPub$ABV,BrewPub$IBU)</code></pre>
@@ -1346,35 +1348,43 @@ cor.test(BrewPub$ABV,BrewPub$IBU)</code></pre>
 </div>
 <div id="in-this-analysis-we-examined-data-from-two-datasets-regarding-beers-and-breweries-throughout-the-us.-we-examined-the-structure-of-this-data-cleaned-them-and-combined-them.-we-then-performed-various-analyses-such-as-calculating-median-values-for-ibu-and-abv-by-state-and-determining-which-states-had-the-beers-with-the-highest-abv-and-ibu-values.-we-finished-by-looking-for-a-potential-relationship-between-ibu-and-abv-and-found-that-there-is-evidence-to-suggest-that-a-positive-correlation-exists-between-the-two." class="section level1">
 <h1>In this analysis, we examined data from two datasets regarding beers and breweries throughout the US. We examined the structure of this data, cleaned them, and combined them. We then performed various analyses, such as calculating median values for IBU and ABV by state, and determining which states had the beers with the highest ABV and IBU values. We finished by looking for a potential relationship between IBU and ABV, and found that there is evidence to suggest that a positive correlation exists between the two.</h1>
-<div id="budweiser-would-also-like-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-india-pale-ales-and-other-types-of-ale-any-beer-with-ale-in-its-name-other-than-ipa." class="section level2">
-<h2>Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA).</h2>
-<pre class="r"><code>BrewPub$BeerType &lt;- ifelse(grepl(&quot;Ale$&quot;, BrewPub$Style, ignore.case = T), &quot;Other Type Ale&quot;,
+</div>
+<div id="the-pearson-correlation-coefficient-r-can-take-a-range-of-values-from-1-to--1.-a-value-of-0-indicates-that-there-is-no-association-between-the-two-variables.-a-value-greater-than-0-indicates-a-positive-association-that-is-as-the-value-of-one-variable-increases-so-does-the-value-of-the-other-variable.-here-we-got-the-cor-as-0.67-between-abv-and-ibu-which-suggests-there-is-a-positive-correlation." class="section level1">
+<h1>The Pearson correlation coefficient, r, can take a range of values from +1 to -1. A value of 0 indicates that there is no association between the two variables. A value greater than 0 indicates a positive association; that is, as the value of one variable increases, so does the value of the other variable. Here we got the cor as 0.67 between ABV and IBU which suggests there is a positive correlation.</h1>
+</div>
+<div id="question-8-budweiser-would-also-like-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-india-pale-ales-and-other-types-of-ale-any-beer-with-ale-in-its-name-other-than-ipa.-you-decide-to-use-knn-clustering-to-investigate-this-relationship.-provide-statistical-evidence-one-way-or-the-other.-you-can-of-course-assume-your-audience-is-comfortable-with-percentages-.-knn-is-very-easy-to-understand." class="section level1">
+<h1>Question 8: Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA). You decide to use KNN clustering to investigate this relationship. Provide statistical evidence one way or the other. You can of course assume your audience is comfortable with percentages . KNN is very easy to understand.</h1>
+<pre class="r"><code>#The following code groups the beers by &quot;India Pale Ale,&quot; &quot;Other Ale,&quot; and &quot;Other Type.&quot;
+BrewPub$BeerType &lt;- ifelse(grepl(&quot;Ale$&quot;, BrewPub$Style, ignore.case = T), &quot;Other Type Ale&quot;,
 ifelse(grepl(&quot;IPA$&quot;, BrewPub$Style, ignore.case = T ), &quot;India Pale Ale&quot;, &quot;Other Type&quot;))
 
+#Change BeerType to a factor and IBU/ABV to numeric
 BrewPub$BeerType = as.factor(BrewPub$BeerType)
+BrewPub$ABV&lt;-as.numeric(as.character(BrewPub$ABV))
+BrewPub$IBU&lt;-as.numeric(as.character(BrewPub$IBU))
 
-# Inida Pale Ale v. Other Type Ale
-set.seed(6)
-splitPerc = .75
-BrewPubIPAOther = BrewPub %&gt;% filter(BeerType == &quot;India Pale Ale&quot; | BeerType == &quot;Other Type Ale&quot;)
+# When looking at the beers by ounces, it appears that IPAs have higher median ABV values than other Ales. 
+#Selecting for only IPAs and Other Ales.
+BrewPubIPAOther = BrewPub %&gt;% filter(!is.na(BeerType) &amp; !is.na(IBU) &amp;!is.na(ABV)) %&gt;%  
+  filter(BeerType == &quot;India Pale Ale&quot; | BeerType == &quot;Other Type Ale&quot;)
 summary(BrewPubIPAOther)</code></pre>
-<pre><code>##                  Name.x       Beer_ID            ABV        
-##  Nonstop Hef Hop    : 12   Min.   :   4.0   Min.   :0.0350  
-##  Dagger Falls IPA   :  3   1st Qu.: 792.5   1st Qu.:0.0520  
-##  312 Urban Wheat Ale:  2   Median :1487.0   Median :0.0620  
-##  Blacktop Blonde    :  2   Mean   :1427.0   Mean   :0.0629  
-##  BLAKKR             :  2   3rd Qu.:2071.5   3rd Qu.:0.0700  
-##  Bombshell Blonde   :  2   Max.   :2692.0   Max.   :0.0990  
-##  (Other)            :748                                    
-##       IBU            Brew_ID                                 Style    
-##  Min.   :  4.00   Min.   :  1.0   American IPA                  :301  
-##  1st Qu.: 24.00   1st Qu.: 94.0   American Amber / Red Ale      : 77  
-##  Median : 50.00   Median :204.0   American Double / Imperial IPA: 75  
-##  Mean   : 51.34   Mean   :223.5   American Blonde Ale           : 61  
-##  3rd Qu.: 70.50   3rd Qu.:337.5   American Pale Wheat Ale       : 61  
-##  Max.   :138.00   Max.   :547.0   American Brown Ale            : 38  
-##                                   (Other)                       :158  
-##      Ounces                             Name.y           City    
+<pre><code>##     Brew_ID                    Beer_Name      Beer_ID      
+##  Min.   :  1.0   Nonstop Hef Hop    : 12   Min.   :   4.0  
+##  1st Qu.: 94.0   Dagger Falls IPA   :  3   1st Qu.: 792.5  
+##  Median :204.0   312 Urban Wheat Ale:  2   Median :1487.0  
+##  Mean   :223.5   Blacktop Blonde    :  2   Mean   :1427.0  
+##  3rd Qu.:337.5   BLAKKR             :  2   3rd Qu.:2071.5  
+##  Max.   :547.0   Bombshell Blonde   :  2   Max.   :2692.0  
+##                  (Other)            :748                   
+##       ABV              IBU                                    Style    
+##  Min.   :0.0350   Min.   :  4.00   American IPA                  :301  
+##  1st Qu.:0.0520   1st Qu.: 24.00   American Amber / Red Ale      : 77  
+##  Median :0.0620   Median : 50.00   American Double / Imperial IPA: 75  
+##  Mean   :0.0629   Mean   : 51.34   American Blonde Ale           : 61  
+##  3rd Qu.:0.0700   3rd Qu.: 70.50   American Pale Wheat Ale       : 61  
+##  Max.   :0.0990   Max.   :138.00   American Brown Ale            : 38  
+##                                    (Other)                       :158  
+##      Ounces                          Brewery_Name        City    
 ##  Min.   :12.00   Hopworks Urban Brewery    : 19   Portland : 28  
 ##  1st Qu.:12.00   Oskar Blues Brewery       : 14   San Diego: 24  
 ##  Median :12.00   Cigar City Brewing Company: 13   Tampa    : 17  
@@ -1392,23 +1402,23 @@ summary(BrewPubIPAOther)</code></pre>
 ##  (Other):448</code></pre>
 <pre class="r"><code>BrewPubIPAOther = droplevels(BrewPubIPAOther, exclude = &quot;Other Type&quot;)
 summary(BrewPubIPAOther)</code></pre>
-<pre><code>##                  Name.x       Beer_ID            ABV        
-##  Nonstop Hef Hop    : 12   Min.   :   4.0   Min.   :0.0350  
-##  Dagger Falls IPA   :  3   1st Qu.: 792.5   1st Qu.:0.0520  
-##  312 Urban Wheat Ale:  2   Median :1487.0   Median :0.0620  
-##  Blacktop Blonde    :  2   Mean   :1427.0   Mean   :0.0629  
-##  BLAKKR             :  2   3rd Qu.:2071.5   3rd Qu.:0.0700  
-##  Bombshell Blonde   :  2   Max.   :2692.0   Max.   :0.0990  
-##  (Other)            :748                                    
-##       IBU            Brew_ID                                 Style    
-##  Min.   :  4.00   Min.   :  1.0   American IPA                  :301  
-##  1st Qu.: 24.00   1st Qu.: 94.0   American Amber / Red Ale      : 77  
-##  Median : 50.00   Median :204.0   American Double / Imperial IPA: 75  
-##  Mean   : 51.34   Mean   :223.5   American Blonde Ale           : 61  
-##  3rd Qu.: 70.50   3rd Qu.:337.5   American Pale Wheat Ale       : 61  
-##  Max.   :138.00   Max.   :547.0   American Brown Ale            : 38  
-##                                   (Other)                       :158  
-##      Ounces                             Name.y           City    
+<pre><code>##     Brew_ID                    Beer_Name      Beer_ID      
+##  Min.   :  1.0   Nonstop Hef Hop    : 12   Min.   :   4.0  
+##  1st Qu.: 94.0   Dagger Falls IPA   :  3   1st Qu.: 792.5  
+##  Median :204.0   312 Urban Wheat Ale:  2   Median :1487.0  
+##  Mean   :223.5   Blacktop Blonde    :  2   Mean   :1427.0  
+##  3rd Qu.:337.5   BLAKKR             :  2   3rd Qu.:2071.5  
+##  Max.   :547.0   Bombshell Blonde   :  2   Max.   :2692.0  
+##                  (Other)            :748                   
+##       ABV              IBU                                    Style    
+##  Min.   :0.0350   Min.   :  4.00   American IPA                  :301  
+##  1st Qu.:0.0520   1st Qu.: 24.00   American Amber / Red Ale      : 77  
+##  Median :0.0620   Median : 50.00   American Double / Imperial IPA: 75  
+##  Mean   :0.0629   Mean   : 51.34   American Blonde Ale           : 61  
+##  3rd Qu.:0.0700   3rd Qu.: 70.50   American Pale Wheat Ale       : 61  
+##  Max.   :0.0990   Max.   :138.00   American Brown Ale            : 38  
+##                                    (Other)                       :158  
+##      Ounces                          Brewery_Name        City    
 ##  Min.   :12.00   Hopworks Urban Brewery    : 19   Portland : 28  
 ##  1st Qu.:12.00   Oskar Blues Brewery       : 14   San Diego: 24  
 ##  Median :12.00   Cigar City Brewing Company: 13   Tampa    : 17  
@@ -1424,15 +1434,18 @@ summary(BrewPubIPAOther)</code></pre>
 ##   IN    : 40                       
 ##   FL    : 28                       
 ##  (Other):448</code></pre>
-<pre class="r"><code>BrewPubIPAOther &lt;- BrewPubIPAOther %&gt;% na.omit()
-
+<pre class="r"><code>BrewPubIPAOther %&gt;% ggplot(aes(x=IBU, ABV, color = BeerType)) + geom_point()</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>set.seed(6)
+splitPerc = .75
 trainIndices = sample(1:dim(BrewPubIPAOther)[1],round(splitPerc * dim(BrewPubIPAOther)[1]))
 train = BrewPubIPAOther[trainIndices,]
 test = BrewPubIPAOther[-trainIndices,]
 
-BrewPubIPAOther %&gt;% ggplot(aes(x = IBU, ABV, color = BeerType)) + geom_point()</code></pre>
-<p><img src="CaseStudy_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-</div>
+BrewPubIPAOther %&gt;% ggplot(aes(x = IBU, ABV, color = BeerType)) + geom_point() + geom_smooth() +
+  ggtitle(&quot;ABV vs IBU&quot;) + theme_economist()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
 </div>
 <div id="knn-method-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-and-other-type-of-ale" class="section level1">
 <h1>Knn method to investigate the difference with respect to IBU and ABV between IPAs and Other Type of Ale</h1>
@@ -1441,68 +1454,68 @@ classifications = knn(train[,c(3,4)],test[,c(3,4)],train$BeerType, prob = TRUE, 
 table(classifications,test$BeerType)</code></pre>
 <pre><code>##                 
 ## classifications  India Pale Ale Other Type Ale
-##   India Pale Ale             79             16
-##   Other Type Ale             10             88</code></pre>
+##   India Pale Ale             44             48
+##   Other Type Ale             40             61</code></pre>
 <pre class="r"><code>confusionMatrix(table(classifications,test$BeerType))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##                 
 ## classifications  India Pale Ale Other Type Ale
-##   India Pale Ale             79             16
-##   Other Type Ale             10             88
-##                                           
-##                Accuracy : 0.8653          
-##                  95% CI : (0.8089, 0.9101)
-##     No Information Rate : 0.5389          
-##     P-Value [Acc &gt; NIR] : &lt;2e-16          
-##                                           
-##                   Kappa : 0.7302          
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.3268          
-##                                           
-##             Sensitivity : 0.8876          
-##             Specificity : 0.8462          
-##          Pos Pred Value : 0.8316          
-##          Neg Pred Value : 0.8980          
-##              Prevalence : 0.4611          
-##          Detection Rate : 0.4093          
-##    Detection Prevalence : 0.4922          
-##       Balanced Accuracy : 0.8669          
-##                                           
-##        &#39;Positive&#39; Class : India Pale Ale  
+##   India Pale Ale             44             48
+##   Other Type Ale             40             61
+##                                          
+##                Accuracy : 0.544          
+##                  95% CI : (0.471, 0.6157)
+##     No Information Rate : 0.5648         
+##     P-Value [Acc &gt; NIR] : 0.7438         
+##                                          
+##                   Kappa : 0.0825         
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.4555         
+##                                          
+##             Sensitivity : 0.5238         
+##             Specificity : 0.5596         
+##          Pos Pred Value : 0.4783         
+##          Neg Pred Value : 0.6040         
+##              Prevalence : 0.4352         
+##          Detection Rate : 0.2280         
+##    Detection Prevalence : 0.4767         
+##       Balanced Accuracy : 0.5417         
+##                                          
+##        &#39;Positive&#39; Class : India Pale Ale 
 ## </code></pre>
 <pre class="r"><code># k = 5
 classifications = knn(train[,c(3,4)],test[,c(3,4)],train$BeerType, prob = TRUE, k = 5)
 table(test$BeerType,classifications)</code></pre>
 <pre><code>##                 classifications
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale             81              8
-##   Other Type Ale             16             88</code></pre>
+##   India Pale Ale             43             41
+##   Other Type Ale             53             56</code></pre>
 <pre class="r"><code>confusionMatrix(table(test$BeerType,classifications))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##                 classifications
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale             81              8
-##   Other Type Ale             16             88
+##   India Pale Ale             43             41
+##   Other Type Ale             53             56
 ##                                           
-##                Accuracy : 0.8756          
-##                  95% CI : (0.8206, 0.9187)
+##                Accuracy : 0.513           
+##                  95% CI : (0.4401, 0.5854)
 ##     No Information Rate : 0.5026          
-##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##     P-Value [Acc &gt; NIR] : 0.4146          
 ##                                           
-##                   Kappa : 0.7514          
+##                   Kappa : 0.0253          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.153           
+##  Mcnemar&#39;s Test P-Value : 0.2566          
 ##                                           
-##             Sensitivity : 0.8351          
-##             Specificity : 0.9167          
-##          Pos Pred Value : 0.9101          
-##          Neg Pred Value : 0.8462          
-##              Prevalence : 0.5026          
-##          Detection Rate : 0.4197          
-##    Detection Prevalence : 0.4611          
-##       Balanced Accuracy : 0.8759          
+##             Sensitivity : 0.4479          
+##             Specificity : 0.5773          
+##          Pos Pred Value : 0.5119          
+##          Neg Pred Value : 0.5138          
+##              Prevalence : 0.4974          
+##          Detection Rate : 0.2228          
+##    Detection Prevalence : 0.4352          
+##       Balanced Accuracy : 0.5126          
 ##                                           
 ##        &#39;Positive&#39; Class : India Pale Ale  
 ## </code></pre>
@@ -1511,33 +1524,33 @@ classifications = knn(train[,c(3,4)],test[,c(3,4)],train$BeerType, prob = TRUE, 
 table(test$BeerType,classifications)</code></pre>
 <pre><code>##                 classifications
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale             83              6
-##   Other Type Ale             17             87</code></pre>
+##   India Pale Ale             47             37
+##   Other Type Ale             54             55</code></pre>
 <pre class="r"><code>confusionMatrix(table(test$BeerType,classifications))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##                 classifications
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale             83              6
-##   Other Type Ale             17             87
+##   India Pale Ale             47             37
+##   Other Type Ale             54             55
 ##                                           
-##                Accuracy : 0.8808          
-##                  95% CI : (0.8266, 0.9229)
-##     No Information Rate : 0.5181          
-##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
+##                Accuracy : 0.5285          
+##                  95% CI : (0.4555, 0.6006)
+##     No Information Rate : 0.5233          
+##     P-Value [Acc &gt; NIR] : 0.47173         
 ##                                           
-##                   Kappa : 0.7623          
+##                   Kappa : 0.0627          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.03706         
+##  Mcnemar&#39;s Test P-Value : 0.09349         
 ##                                           
-##             Sensitivity : 0.8300          
-##             Specificity : 0.9355          
-##          Pos Pred Value : 0.9326          
-##          Neg Pred Value : 0.8365          
-##              Prevalence : 0.5181          
-##          Detection Rate : 0.4301          
-##    Detection Prevalence : 0.4611          
-##       Balanced Accuracy : 0.8827          
+##             Sensitivity : 0.4653          
+##             Specificity : 0.5978          
+##          Pos Pred Value : 0.5595          
+##          Neg Pred Value : 0.5046          
+##              Prevalence : 0.5233          
+##          Detection Rate : 0.2435          
+##    Detection Prevalence : 0.4352          
+##       Balanced Accuracy : 0.5316          
 ##                                           
 ##        &#39;Positive&#39; Class : India Pale Ale  
 ## </code></pre>
@@ -1546,12 +1559,12 @@ classifications = knn(train[,c(3,4)],test[,c(3,4)],train$BeerType, prob = TRUE, 
 table(test$BeerType,classifications)</code></pre>
 <pre><code>##                 classifications
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale             83              6
-##   Other Type Ale             18             86</code></pre>
+##   India Pale Ale             44             40
+##   Other Type Ale             57             52</code></pre>
 <pre class="r"><code>CM = confusionMatrix(table(test$BeerType,classifications))
 CM$overall[1]</code></pre>
 <pre><code>##  Accuracy 
-## 0.8756477</code></pre>
+## 0.4974093</code></pre>
 <pre class="r"><code>## Loop for many k and one training / test partition
 accs = data.frame(accuracy = numeric(30), k = numeric(30))
 
@@ -1566,45 +1579,101 @@ for(i in 1:30)
 
 plot(accs$k,accs$accuracy, type = &quot;l&quot;, xlab = &quot;k&quot;)</code></pre>
 <p><img src="CaseStudy_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>## Loop for many k and one training / test partition--determining the optimal number of k.
+iterations=200
+accs = data.frame(accuracy = numeric(iterations), k = numeric(iterations))
+for(i in 1:iterations)
+{
+  classifications = knn(train[,c(4,5)],test[,c(4,5)],train$BeerType, prob = TRUE, k = i)
+  table(test$BeerType,classifications)
+  CM = confusionMatrix(table(test$BeerType,classifications))
+  accs$accuracy[i] = CM$overall[1]
+  accs$k[i] = i
+}
+plot(accs$k,accs$accuracy, type = &quot;l&quot;, xlab = &quot;k&quot;, ylab=&quot;Accuracy&quot;)</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<pre class="r"><code>#k=105 since the accuracy graph seems to level off at a high point around there.
+classifications = knn(train[,c(4,5)],test[,c(4,5)],train$BeerType, prob = TRUE, k = 75)
+table(test$BeerType,classifications)</code></pre>
+<pre><code>##                 classifications
+##                  India Pale Ale Other Type Ale
+##   India Pale Ale             74             10
+##   Other Type Ale             22             87</code></pre>
+<pre class="r"><code>CM = confusionMatrix(table(test$BeerType,classifications))
+CM</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                 classifications
+##                  India Pale Ale Other Type Ale
+##   India Pale Ale             74             10
+##   Other Type Ale             22             87
+##                                           
+##                Accuracy : 0.8342          
+##                  95% CI : (0.7741, 0.8837)
+##     No Information Rate : 0.5026          
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
+##                                           
+##                   Kappa : 0.6682          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.05183         
+##                                           
+##             Sensitivity : 0.7708          
+##             Specificity : 0.8969          
+##          Pos Pred Value : 0.8810          
+##          Neg Pred Value : 0.7982          
+##              Prevalence : 0.4974          
+##          Detection Rate : 0.3834          
+##    Detection Prevalence : 0.4352          
+##       Balanced Accuracy : 0.8339          
+##                                           
+##        &#39;Positive&#39; Class : India Pale Ale  
+## </code></pre>
+</div>
+<div id="in-the-graph-on-the-right-we-can-see-how-the-accuracy-of-the-model-changes-with-the-given-number-of-data-points-or-neighbors-taken-into-account.-as-you-can-see-it-plateaus-shortly-after-100-before-dropping-off.-because-this-range-holds-a-relatively-stable-accuracy-and-at-the-highest-point-we-ran-a-model-with-k105.-in-the-data-output-here-you-can-see-that-the-accuracy-is-almost-89." class="section level1">
+<h1>In the graph on the right, we can see how the accuracy of the model changes with the given number of data points, or “neighbors,” taken into account. As you can see, it plateaus shortly after 100 before dropping off. Because this range holds a relatively stable accuracy (and at the highest point), we ran a model with k=105. In the data output here you can see that the accuracy is almost 89%.</h1>
+</div>
+<div id="question-9---other-insights---niaeve-bayes" class="section level1">
+<h1>Question 9 - Other Insights - Niaeve Bayes</h1>
 </div>
 <div id="naive-bayes-method-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-and-other-type-of-ale" class="section level1">
 <h1>Naive Bayes method to investigate the difference with respect to IBU and ABV between IPAs and Other Type of Ale</h1>
-<pre class="r"><code>model = naiveBayes(BrewPubIPAOther[,c(3,4)],BrewPubIPAOther$BeerType)
+<pre class="r"><code>#We also tested wither a different model, the Naieve Bayes, would be a more accurate predictor.  This model is different in that it uses given data to predict an uknown factor using probabilities that are calculated from the known data.
+model = naiveBayes(BrewPubIPAOther[,c(3,4)],BrewPubIPAOther$BeerType)
 table(predict(model,BrewPubIPAOther[,c(3,4)]),BrewPubIPAOther$BeerType)</code></pre>
 <pre><code>##                 
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale            331             52
-##   Other Type Ale             54            334</code></pre>
+##   India Pale Ale            275             86
+##   Other Type Ale            110            300</code></pre>
 <pre class="r"><code>CM = confusionMatrix(table(predict(model,BrewPubIPAOther[,c(3,4)]),BrewPubIPAOther$BeerType))
 CM</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##                 
 ##                  India Pale Ale Other Type Ale
-##   India Pale Ale            331             52
-##   Other Type Ale             54            334
-##                                          
-##                Accuracy : 0.8625         
-##                  95% CI : (0.8362, 0.886)
-##     No Information Rate : 0.5006         
-##     P-Value [Acc &gt; NIR] : &lt;2e-16         
-##                                          
-##                   Kappa : 0.725          
-##                                          
-##  Mcnemar&#39;s Test P-Value : 0.9226         
-##                                          
-##             Sensitivity : 0.8597         
-##             Specificity : 0.8653         
-##          Pos Pred Value : 0.8642         
-##          Neg Pred Value : 0.8608         
-##              Prevalence : 0.4994         
-##          Detection Rate : 0.4293         
-##    Detection Prevalence : 0.4968         
-##       Balanced Accuracy : 0.8625         
-##                                          
-##        &#39;Positive&#39; Class : India Pale Ale 
+##   India Pale Ale            275             86
+##   Other Type Ale            110            300
+##                                           
+##                Accuracy : 0.7458          
+##                  95% CI : (0.7135, 0.7762)
+##     No Information Rate : 0.5006          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.4915          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.1004          
+##                                           
+##             Sensitivity : 0.7143          
+##             Specificity : 0.7772          
+##          Pos Pred Value : 0.7618          
+##          Neg Pred Value : 0.7317          
+##              Prevalence : 0.4994          
+##          Detection Rate : 0.3567          
+##    Detection Prevalence : 0.4682          
+##       Balanced Accuracy : 0.7457          
+##                                           
+##        &#39;Positive&#39; Class : India Pale Ale  
 ## </code></pre>
-<pre class="r"><code>iterations = 100
+<pre class="r"><code>iterations = 200
 masterAcc = matrix(nrow = iterations)
 splitPerc = .7 #Training / Test split Percentage
 for(j in 1:iterations)
@@ -1620,7 +1689,214 @@ for(j in 1:iterations)
 }
 MeanAcc = colMeans(masterAcc)
 MeanAcc</code></pre>
-<pre><code>## [1] 0.8624675</code></pre>
+<pre><code>## [1] 0.7453896</code></pre>
+<pre class="r"><code>plot(accs$k,accs$accuracy, type = &quot;l&quot;, xlab = &quot;k&quot;, ylab=&quot;Accuracy&quot;)</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>#k=105 since the accuracy graph seems to level off at a high point around there.
+classifications = knn(train[,c(4,5)],test[,c(4,5)],train$BeerType, prob = TRUE, k = 75)
+table(test$BeerType,classifications)</code></pre>
+<pre><code>##                 classifications
+##                  India Pale Ale Other Type Ale
+##   India Pale Ale            101              5
+##   Other Type Ale             26             99</code></pre>
+<pre class="r"><code>CM = confusionMatrix(table(test$BeerType,classifications))
+CM</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                 classifications
+##                  India Pale Ale Other Type Ale
+##   India Pale Ale            101              5
+##   Other Type Ale             26             99
+##                                         
+##                Accuracy : 0.8658        
+##                  95% CI : (0.815, 0.907)
+##     No Information Rate : 0.5498        
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16     
+##                                         
+##                   Kappa : 0.7338        
+##                                         
+##  Mcnemar&#39;s Test P-Value : 0.000328      
+##                                         
+##             Sensitivity : 0.7953        
+##             Specificity : 0.9519        
+##          Pos Pred Value : 0.9528        
+##          Neg Pred Value : 0.7920        
+##              Prevalence : 0.5498        
+##          Detection Rate : 0.4372        
+##    Detection Prevalence : 0.4589        
+##       Balanced Accuracy : 0.8736        
+##                                         
+##        &#39;Positive&#39; Class : India Pale Ale
+## </code></pre>
+<pre class="r"><code>#We can see that this model achieved a mean accuracy of approximately 86.3%--not quite as high as the accuracy we achieved from using the k-NN model. </code></pre>
+</div>
+<div id="question-9---other-insights---abv-by-ounces" class="section level1">
+<h1>Question 9 - Other Insights - ABV by Ounces</h1>
+<pre class="r"><code>library(usmap)</code></pre>
+<pre><code>## Warning: package &#39;usmap&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(mapproj)</code></pre>
+<pre><code>## Warning: package &#39;mapproj&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>BrewPubIPAOther$Ounces&lt;-as.factor(BrewPubIPAOther$Ounces)
+
+BrewPubIPAOther %&gt;% ggplot(mapping=aes(x=Ounces, y=ABV, fill=BeerType)) + geom_boxplot() + 
+  ggtitle(&quot;ABV by Ounces&quot;) + theme_economist()</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-12-1.png" width="672" /> #We can see that it the median ABV value appears to increase as ounces increase, with the execption of 24 and 32 ounces. However, more in-depth statistical testing would need to be done in order to determine if there was a significant relationship.</p>
+</div>
+<div id="question-9---other-insights---median-abv-by-state-continued" class="section level1">
+<h1>Question 9 - Other Insights - Median ABV by State (continued)</h1>
+<pre class="r"><code>#In order to more clearly visualize the median ABV value for each state, we believed a heat map of the United States would be more efficient. 
+
+#Get Map Data
+states &lt;- map_data(&quot;state&quot;)
+
+#Test plot of US
+states %&gt;% ggplot(mapping=aes(x=long, y=lat, group=group, fill=region)) + 
+  geom_polygon(fill=&quot;white&quot;, color=&quot;black&quot;)</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>beerbybrew1 = BrewPub %&gt;% filter(!is.na(ABV))
+
+###Median of ABV by state###
+abvmed = summaryBy(ABV~State, data=beerbybrew1, FUN=median)
+
+#Get State names instead of abbreviations
+abvmed1=abvmed
+abvmed1$State&lt;-as.character(abvmed1$State)
+
+#Get rid of white space on left of abbreviation
+abvmed1=abvmed1%&gt;%mutate(State=str_trim(State))
+
+#Do mutation on ABV percentage and getting state full name
+abvmed2=abvmed1%&gt;%mutate(State=abbr2state(State), ABV.median=ABV.median*100)
+head(abvmed2)</code></pre>
+<pre><code>##        State ABV.median
+## 1     Alaska       5.60
+## 2    Alabama       6.00
+## 3   Arkansas       5.20
+## 4    Arizona       5.50
+## 5 California       5.80
+## 6   Colorado       6.05</code></pre>
+<pre class="r"><code>#changing state to lowercase
+abvmed3=abvmed2%&gt;%mutate(State=tolower(State))
+head(abvmed3)</code></pre>
+<pre><code>##        State ABV.median
+## 1     alaska       5.60
+## 2    alabama       6.00
+## 3   arkansas       5.20
+## 4    arizona       5.50
+## 5 california       5.80
+## 6   colorado       6.05</code></pre>
+<pre class="r"><code>#left_join to get long and lat for each stae
+beerloc=left_join(states,abvmed3, by=c(&quot;region&quot;=&quot;State&quot;))
+
+#Change ABV.Median to factor
+beerloc$ABV.median&lt;-as.numeric(beerloc$ABV.median)
+
+#Plot ABV median by state
+beerloc %&gt;% ggplot(mapping=aes(x=long, y=lat, group=group, fill=ABV.median)) + 
+  geom_polygon(color=&quot;black&quot;) + 
+  coord_map(projection=&quot;albers&quot;, lat0=39, lat1=45) + 
+  labs(title=&quot;Median ABV by State&quot;) + 
+  theme_map() +
+  labs(fill=&quot;Median ABV %&quot;)</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-13-2.png" width="672" /> #The map clearly shows thte states with higher ABV values. ONe state that sticks out is Utah–it is significantly darker than the rest of the states.</p>
+</div>
+<div id="question-9---other-insights---heat-map-of-breweries-by-state" class="section level1">
+<h1>Question 9 - Other Insights - Heat Map of Breweries by State</h1>
+</div>
+<div id="heat-map-of-breweries-by-state" class="section level1">
+<h1>Heat Map of Breweries by State</h1>
+<pre class="r"><code>#Heat map for breweries by state
+
+#One thing we thought might be beneficial to the committee is to see the population density of the breweries based on the date you had supplied us with.  It was stated in Anheuser-Busch&#39;s 2018 Annual Report that organic growth remainsthe number one goal.  However, prudnet acquisitions were in the top three strategies.  
+
+#Count the number of breweries per state
+library(plyr)</code></pre>
+<pre><code>## Warning: package &#39;plyr&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:maps&#39;:
+## 
+##     ozone</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     compact</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre class="r"><code>brewst=count(Breweries$State)
+
+#Get State names instead of abbreviations
+brewst$x&lt;-as.character(brewst$x)
+
+#Get rid of white space on left of abbreviation
+brewst1=brewst%&gt;%mutate(x=str_trim(x))
+
+#Do mutation on ABV percentage and getting state full name
+brewst1=brewst1%&gt;%mutate(state1=abbr2state(x))
+head(brewst1)</code></pre>
+<pre><code>##    x freq     state1
+## 1 AK    7     Alaska
+## 2 AL    3    Alabama
+## 3 AR    2   Arkansas
+## 4 AZ   11    Arizona
+## 5 CA   39 California
+## 6 CO   47   Colorado</code></pre>
+<pre class="r"><code>#changing state to lowercase
+brewst1=brewst1%&gt;%mutate(state2=tolower(state1))
+head(brewst1)</code></pre>
+<pre><code>##    x freq     state1     state2
+## 1 AK    7     Alaska     alaska
+## 2 AL    3    Alabama    alabama
+## 3 AR    2   Arkansas   arkansas
+## 4 AZ   11    Arizona    arizona
+## 5 CA   39 California california
+## 6 CO   47   Colorado   colorado</code></pre>
+<pre class="r"><code>brewst2=brewst1%&gt;%select(state2, freq)
+head(brewst2)</code></pre>
+<pre><code>##       state2 freq
+## 1     alaska    7
+## 2    alabama    3
+## 3   arkansas    2
+## 4    arizona   11
+## 5 california   39
+## 6   colorado   47</code></pre>
+<pre class="r"><code>#left_join to get long and lat for each stae
+brewstate=left_join(states,brewst2, by=c(&quot;region&quot;=&quot;state2&quot;))
+head(brewstate)</code></pre>
+<pre><code>##        long      lat group order  region subregion freq
+## 1 -87.46201 30.38968     1     1 alabama      &lt;NA&gt;    3
+## 2 -87.48493 30.37249     1     2 alabama      &lt;NA&gt;    3
+## 3 -87.52503 30.37249     1     3 alabama      &lt;NA&gt;    3
+## 4 -87.53076 30.33239     1     4 alabama      &lt;NA&gt;    3
+## 5 -87.57087 30.32665     1     5 alabama      &lt;NA&gt;    3
+## 6 -87.58806 30.32665     1     6 alabama      &lt;NA&gt;    3</code></pre>
+<pre class="r"><code>#Change ABV.Median to factor
+brewstate$freq&lt;-as.numeric(brewstate$freq)
+
+#Plot ABV median by state
+brewstate %&gt;% ggplot(mapping=aes(x=long, y=lat, group=group,  fill=freq)) +
+    geom_polygon(color=&quot;black&quot;) + 
+    coord_map(projection=&quot;albers&quot;, lat0=39, lat1=45) + 
+      labs(title=&quot;Number of Breweries by State&quot;) + 
+      theme_map() + 
+      labs(fill=&quot;# of Breweries&quot;)</code></pre>
+<p><img src="CaseStudy_files/figure-html/unnamed-chunk-14-1.png" width="672" /> #Looking at the heat map below, we believe it may be benneficial to this commitee given acquisition being a main corporate strategy. One example is Colorado. It has clearly the highest number of craft breweries, and is also a state where Budweiser is lacking market share compared to Coors. A potential acquisition strategy could be to invest in both early-stage and established craft breweries that show potential in expanding the product line in not only Colorado, but the whole mountan region in general. Give the purchasing power of Budweiser, and the small size of most craft breweries, it would be relatively easy for Budweiser to invest in multiple breweries without the affecting revenue reinvestment towards Budweiser’s number one goal of organic growth.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+</div>
+<div id="again-thank-you-all-very-much-for-your-time-today.-we-know-that-you-are-very-busy-individuals-and-we-hope-that-this-was-beneficial.-to-recap-what-weve-concluded-from-this-study-1.-weve-looked-at-the-numbe-of-breweries-in-each-state.-the-states-with-the-largest-number-of-breweries-include-colorado-california-and-michigan.-2.-weve-looked-at-the-states-with-the-highest-abv-and-ibu-values-colorado-with-the-highest-abv-at-12.8-and-oregon-with-the-highest-ibu-value-of-138.-3.-weve-looked-at-the-summary-statistics-of-the-abv-value-noting-that-there-is-a-mean-of-5.99-and-that-a-majorit-of-the-craft-beers-have-an-abv-of-7-or-less.-4.-weve-determined-that-there-seems-to-be-a-positive-linear-relationship-between-ibu-and-abv-values-5.-weve-utilized-a-model-that-will-allow-us-to-identify-whether-a-beer-is-an-ipa-or-other-ale-with-approximatley-89-accuracy.-6.-weve-compared-the-k-nn-model-with-an-alternative-model-to-see-which-would-be-better-suited.-7.-weve-compared-the-abv-of-the-beers-versus-the-ounzes-they-are-served.-8.-finally-we-have-provided-the-committee-with-a-map-of-the-brewery-concentrations-in-each-state-in-order-to-facilite-one-of-budweisers-main-strategic-initiatives-of-acquisition." class="section level1">
+<h1>Again, thank you all very much for your time today. We know that you are very busy individuals and we hope that this was beneficial. To recap what we’ve concluded from this study: #1. we’ve looked at the numbe of breweries in each state. The states with the largest number of breweries include: Colorado, California, and Michigan. #2. We’ve looked at the states with the highest ABV and IBu values: Colorado with the highest ABV at 12.8 and Oregon with the highest IBU value of 138. #3. We’ve looked at the summary statistics of the ABV value, noting that there is a mean of 5.99% and that a majorit of the craft beers have an ABV of 7% or less. #4. We’ve determined that there seems to be a positive linear relationship between IBU and ABV values, #5. We’ve utilized a model that will allow us to identify whether a beer is an IPA or Other Ale with approximatley 89% accuracy. #6. We’ve compared the k-NN model with an alternative model to see which would be better-suited. #7. We’ve Compared the ABV of the beers versus the ounzes they are served. #8. Finally, we have provided the committee with a map of the brewery concentrations in each state in order to facilite one of Budweiser’s main strategic initiatives of acquisition.</h1>
+</div>
+<div id="thank-you-all-again-and-we-hope-you-have-a-great-weekend." class="section level1">
+<h1>Thank you all again and we hope you have a great weekend.</h1>
 </div>
 
 
